@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+    <style>
+        body {
+            background-color: #b9e4f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px; 
+            background-color: #f9f9f9;
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        form input[type="text"],
+        form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Vote</h1>
+    <p>Welcome, {{ session['name'] }}!</p>
+    <form id="voteForm" method="POST" action="/vote">
+        <label for="student_id">Student ID:</label><br>
+        <input type="text" id="student_id" name="student_id"><br>
+        <label for="chosen_committee">Chosen Committee:</label><br>
+        <input type="text" id="chosen_committee" name="chosen_committee"><br>
+        <label for="private_key">Signature:</label><br>
+        <textarea id="private_key" name="private_key"></textarea><br> 
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

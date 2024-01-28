@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Votes</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid #ddd; 
+            border-radius: 5px; 
+            outline: 2px solid #204daf;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h2>Changed Votes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vote in changed_votes %}
+            <tr>
+                <td>{{ vote.student_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h1>All Votes</h1>
+    <h2>Committee Vote Counts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Chosen Committee</th>
+                <th>Vote Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for committee, vote_count in committee_vote_counts.items() %}
+            <tr>
+                <td>{{ committee }}</td>
+                <td>{{ vote_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Most Voted Committee</h2>
+    <p>{{ most_voted_committee }} ({{ committee_vote_counts[most_voted_committee] }} votes)</p>
+
+    <h2>All Votes</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Student ID</th>
+                <th>Chosen Committee</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vote in all_votes %}
+            <tr>
+                <td>{{ vote.student_id }}</td>
+                <td>{{ vote.chosen_committee }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+</body>
+</html>
