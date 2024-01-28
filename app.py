@@ -84,7 +84,11 @@ def login():
         name = request.form['name']
         password = request.form['password']
 
-        voter = Voter.query.filter_by(name=name, password=password).first()
+        # เปลี่ยนจากการใช้รหัสผ่านแบบข้อความธรรมดาไปเป็นการใช้รหัสผ่านที่เข้ารหัสแล้ว
+        hashed_password = hashlib.sha256(password.encode()).hexdigest()
+
+        # เปรียบเทียบรหัสผ่านที่ถูกเข้ารหัสในฐานข้อมูล
+        voter = Voter.query.filter_by(name=name, password=hashed_password).first()
         if voter:
             session['name'] = voter.name
             return redirect(url_for('vote'))
@@ -92,7 +96,6 @@ def login():
             return jsonify({'message': 'Invalid username or password'})
 
     return render_template('login.html')
-
 @app.route('/vote', methods=['GET', 'POST'])
 def vote():
     if 'name' not in session:
@@ -206,6 +209,8 @@ def all_votes():
     most_voted_committee = max(committee_vote_counts, key=committee_vote_counts.get)
 
     return render_template('all_votes.html', all_votes=all_votes, committee_vote_counts=committee_vote_counts, most_voted_committee=most_voted_committee, changed_votes=changed_votes)
+
+
 
 
 if __name__ == '__main__':
